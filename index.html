@@ -26,8 +26,8 @@
         border-collapse: collapse;
       }
       td {
-        width: 20px;
-        height: 68.8px;
+        width: 70px;
+        height: 70px;
       }
       tr:nth-child(even) td:nth-child(even),
       tr:nth-child(odd) td:nth-child(odd) {
@@ -124,18 +124,21 @@
         </tr>
       </table>
     </div>
-    <script>
-      let table = document.getElementById("myTable");
-      for (let i in table.rows) {
-        let row = table.rows[i];
-        for (let j in row.cells) {
-          let col = row.cells[j];
-          if (row[i] === col[j]) {
-            console.log("hello");
-            //document.querySelector("td").style.backgroundColor = "pink";
-          }
-        }
-      }
-    </script>
+    <script src="./index.js"></script>
   </body>
 </html>
+
+<!-- 
+
+  0 1 2  
+0 a b c
+1 d e f
+2 g h i
+
+
+e - 1,1
+0,0
+0,2
+2,0
+2,2
+ -->
