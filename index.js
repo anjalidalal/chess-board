@@ -1,30 +1,57 @@
-let table = document.getElementById("myTable");
-const tableData = document.querySelectorAll("td");
+const tableRows = document.querySelectorAll("tr");
 
-tableData.forEach((th) => {
-  th.addEventListener("click", (e) => {
-    e.preventDefault();
-    console.log(e.target);
+const cellsInRow = [];
 
-    let left = 0,
-      right = table.rows.length,
-      top = 0,
-      bottom = table.rows.length;
-    console.log(right, left);
+const setColor = (ele) => {
+  ele.style.backgroundColor = "lightpink";
+};
 
-    for (let i = 0; i < table.rows.length; i++) {
-      for (let j = 0; j < table.rows[i].cells.length; j++) {
-        let row = table.rows[i];
-        let col = table.rows[i].cells[j];
-        //console.log(i, j);
-        // if (i - j === 0 || i + j === 2) {
-        //   col.style.backgroundColor = "pink";
-        // }
-        // for (let i = left; i >= right; i++) {
-        //   col.style.backgroundColor = "pink";
-        //   console.log(i, left, right);
-        // }
-      }
+const onCellClick = (row, column) => () => {
+  // clear all colors
+
+  cellsInRow.forEach((cells) => {
+    cells.forEach((cell) => {
+      cell.style.backgroundColor = "";
+    });
+  });
+
+  setColor(cellsInRow[row][column]);
+
+  // Top left traverse
+  for (i = row - 1, j = column - 1; i >= 0, j >= 0; i--, j--) {
+    if (i >= 0 && j >= 0) {
+      setColor(cellsInRow[i][j]);
     }
+  }
+
+  // Top right traverse
+  for (i = row - 1, j = column + 1; i >= 0, j <= 7; i--, j++) {
+    if (i >= 0 && j <= 7) {
+      setColor(cellsInRow[i][j]);
+    }
+  }
+
+  // Bottom left traverse
+  for (i = row + 1, j = column - 1; i <= 7, j >= 0; i++, j--) {
+    if (i <= 7 && j >= 0) {
+      setColor(cellsInRow[i][j]);
+    }
+  }
+
+  // Bottom right traverse
+  for (i = row + 1, j = column + 1; i <= 7, j <= 7; i++, j++) {
+    if (i <= 7 && j <= 7) {
+      setColor(cellsInRow[i][j]);
+    }
+  }
+};
+
+tableRows.forEach((tableRow, rowIndex) => {
+  const cells = tableRow.querySelectorAll("td");
+
+  cellsInRow.push(cells);
+
+  cells.forEach((cell, cellIndex) => {
+    cell.addEventListener("click", onCellClick(rowIndex, cellIndex));
   });
 });
